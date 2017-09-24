@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from rest_framework_swagger.views import get_swagger_view
 
-schema_view = get_swagger_view(title='{{ my_project }}')
+schema_view = get_swagger_view(title='{{ project_name }}')
 # from .views import schema_view
 
 urlpatterns = [

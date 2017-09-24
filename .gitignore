@@ -122,3 +122,7 @@ Session.vim
 # temporary
 .netrwhist
 *~
+
+### Database ###
+*.sqlite3
+

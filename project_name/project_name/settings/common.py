@@ -163,11 +163,64 @@ USE_TZ = True
 # Default application USER Model
 AUTH_USER_MODEL = "authentication.User"
 
-
+# Swagger Configuration
 SWAGGER_SETTINGS = {
     'LOGIN_URL': 'rest_framework:login',
     'LOGOUT_URL': 'rest_framework:logout',
     'USE_SESSION_AUTH': True,
     'DOC_EXPANSION': 'list',
     'APIS_SORTER': 'alpha'
+}
+
+# Error Logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s|%(asctime)s|%(module)s|%(process)d|%(thread)d| [%(name)s:%(lineno)s] | %(message)s',
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "simple",
+            "stream": "ext://sys.stdout"
+        },
+        "info_file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "INFO",
+            "formatter": "verbose",
+            "filename": os.path.join(PROJECT_ROOT_DIR, "log/{{ project_name }}_info.log"),
+            "maxBytes": 10485760,
+            "backupCount": 20,
+            "encoding": "utf8"
+        },
+        "error_file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "ERROR",
+            "formatter": "verbose",
+            "filename": os.path.join(PROJECT_ROOT_DIR, "log/{{ project_name }}_errors.log"),
+            "maxBytes": 10485760,
+            "backupCount": 20,
+            "encoding": "utf8"
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'info_file_handler', 'error_file_handler'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        '{{ project_name }}': {
+            'handlers': ['error_file_handler'],
+            'level': 'ERROR',
+        },
+    }
 }

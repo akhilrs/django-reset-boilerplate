@@ -6,7 +6,7 @@ verify_ssl = true
 
 [packages]
 
-django = "==1.11.29"
+django = "==2.2.24"
 djangorestframework = "==3.11.2"
 django-rest-swagger = "==2.1.2"
 django-extensions = "==1.9.1"
